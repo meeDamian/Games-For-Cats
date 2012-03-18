@@ -1,1 +1,1 @@
-Penis strong enough to withhold the great solar power encircling almighty universe.
+Penis strong enough to withhold the great solar power encircling almighty universe. Never ever in the entire existance of time were found a pair of genitalia that strong.
