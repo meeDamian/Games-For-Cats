@@ -1,6 +1,6 @@
 package pl.d30.cats;
 
-import pl.d30.cats.GamesForCatsView.GamesForCatsThread;
+import pl.d30.cats.GFC_View.GFC_Thread;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ import android.widget.TextView;
  * <li>handling onPause() in an animation
  * </ul>
  */
-public class GamesForCatsActivity extends Activity {
+public class GFC_Activity extends Activity {
     private static final int MENU_EASY = 1;
 
     private static final int MENU_HARD = 2;
@@ -33,10 +33,10 @@ public class GamesForCatsActivity extends Activity {
     private static final int MENU_STOP = 7;
 
     /** A handle to the thread that's actually running the animation. */
-    private GamesForCatsThread mLunarThread;
+    private GFC_Thread mLunarThread;
 
     /** A handle to the View in which the game is running. */
-    private GamesForCatsView mLunarView;
+    private GFC_View mLunarView;
 
     /**
      * Invoked during init to give the Activity a chance to set up its Menu.
@@ -73,7 +73,7 @@ public class GamesForCatsActivity extends Activity {
                 mLunarThread.doStart();
                 return true;
             case MENU_STOP:
-                mLunarThread.setState(GamesForCatsThread.STATE_LOSE,
+                mLunarThread.setState(GFC_Thread.STATE_LOSE,
                         getText(R.string.message_stopped));
                 return true;
             case MENU_PAUSE:
@@ -83,13 +83,13 @@ public class GamesForCatsActivity extends Activity {
                 mLunarThread.unpause();
                 return true;
             case MENU_EASY:
-                mLunarThread.setDifficulty(GamesForCatsThread.DIFFICULTY_EASY);
+                mLunarThread.setDifficulty(GFC_Thread.DIFFICULTY_EASY);
                 return true;
             case MENU_MEDIUM:
-                mLunarThread.setDifficulty(GamesForCatsThread.DIFFICULTY_MEDIUM);
+                mLunarThread.setDifficulty(GFC_Thread.DIFFICULTY_MEDIUM);
                 return true;
             case MENU_HARD:
-                mLunarThread.setDifficulty(GamesForCatsThread.DIFFICULTY_HARD);
+                mLunarThread.setDifficulty(GFC_Thread.DIFFICULTY_HARD);
                 return true;
         }
 
@@ -110,7 +110,7 @@ public class GamesForCatsActivity extends Activity {
         setContentView(R.layout.main);
 
         // get handles to the LunarView from XML, and its LunarThread
-        mLunarView = (GamesForCatsView) findViewById(R.id.lunar);
+        mLunarView = (GFC_View) findViewById(R.id.lunar);
         mLunarThread = mLunarView.getThread();
 
         // give the LunarView a handle to the TextView used for messages
@@ -118,7 +118,7 @@ public class GamesForCatsActivity extends Activity {
 
         if (savedInstanceState == null) {
             // we were just launched: set up a new game
-            mLunarThread.setState(GamesForCatsThread.STATE_READY);
+            mLunarThread.setState(GFC_Thread.STATE_READY);
             Log.w(this.getClass().getName(), "SIS is null");
         } else {
             // we are being restored: resume a previous game

@@ -1,6 +1,5 @@
 package pl.d30.cats;
 
-import pl.d30.cats.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -27,8 +26,8 @@ import android.widget.TextView;
  * ship, and does an invalidate() to prompt another draw() as soon as possible
  * by the system.
  */
-class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
-    class GamesForCatsThread extends Thread {
+class GFC_View extends SurfaceView implements SurfaceHolder.Callback {
+    class GFC_Thread extends Thread {
         /*
          * Difficulty setting constants
          */
@@ -188,7 +187,7 @@ class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
         /** Y of lander center. */
         private double mY;
 
-        public GamesForCatsThread(SurfaceHolder surfaceHolder, Context context, Handler handler) {
+        public GFC_Thread(SurfaceHolder surfaceHolder, Context context, Handler handler) {
             // get handles to some important objects
             mSurfaceHolder = surfaceHolder;
             mHandler = handler;
@@ -624,13 +623,11 @@ class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.rotate((float) mHeading, (float) mX, mCanvasHeight
                     - (float) mY);
             if (mMode == STATE_LOSE) {
-                mCrashedImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
-                        + mLanderHeight);
-                mCrashedImage.draw(canvas);
+                //mCrashedImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop + mLanderHeight);
+                //mCrashedImage.draw(canvas);
             } else if (mEngineFiring) {
-                mFiringImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
-                        + mLanderHeight);
-                mFiringImage.draw(canvas);
+                //mFiringImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop + mLanderHeight);
+                //mFiringImage.draw(canvas);
             } else {
                 mLanderImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
                         + mLanderHeight);
@@ -754,9 +751,9 @@ class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
     private TextView mStatusText;
 
     /** The thread that actually draws the animation */
-    private GamesForCatsThread thread;
+    private GFC_Thread thread;
 
-    public GamesForCatsView(Context context, AttributeSet attrs) {
+    public GFC_View(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         // register our interest in hearing about changes to our surface
@@ -764,7 +761,7 @@ class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
         holder.addCallback(this);
 
         // create thread only; it's started in surfaceCreated()
-        thread = new GamesForCatsThread(holder, context, new Handler() {
+        thread = new GFC_Thread(holder, context, new Handler() {
             @Override
             public void handleMessage(Message m) {
                 mStatusText.setVisibility(m.getData().getInt("viz"));
@@ -780,7 +777,7 @@ class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
      *
      * @return the animation thread
      */
-    public GamesForCatsThread getThread() {
+    public GFC_Thread getThread() {
         return thread;
     }
 
@@ -853,3 +850,4 @@ class GamesForCatsView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 }
+
